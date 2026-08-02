@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const team = [
+  {
+    name: "Zahin Azmayeen",
+    image: "/uploads/team/zahin-azmayeen.jpg",
+    imagePosition: "center",
+    bio: "Zahin Azmayeen is a software engineer and a co-founder of Oceanopedia. Alongside Fakhrul Alam Anik, he came up with an idea for a community-driven oceanography resource while studying Oceanography at Shahjalal University of Science and Technology in Sylhet, Bangladesh. He writes and edits articles for Oceanopedia and maintains the website.",
+    links: [
+      { label: "Website", href: "https://permafrost06.com" },
+      { label: "GitHub", href: "https://github.com/permafrost06" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/zahin-azmayeen/" },
+    ],
+  },
+  {
+    name: "Md. Omar Meharab",
+    image: "/uploads/team/omar-meharab.png",
+    imagePosition: "center",
+    bio: "Md. Omar Meharab is an ocean enthusiast. He did not choose the ocean; rather, the ocean chose him. Although he is professionally an English teacher, the ocean still calls him. He stays connected to that part of his heart through Oceanopedia.",
+    links: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/omarmeharab" },
+    ],
+  },
+  {
+    name: "Md Abu Yousuf Prodhan",
+    image: "/uploads/team/abu-yousuf-prodhan.jpg",
+    imagePosition: "55% center",
+    bio: "Md Abu Yousuf Prodhan is an early-career oceanographer fascinated by the hidden dynamics of the ocean and the stories they tell. Whether exploring marine processes through data and modelling or translating complex science into engaging narratives, he believes knowledge creates the greatest impact when it reaches the people who need it most. His work bridges physical oceanography, predictive modelling, science communication, and community engagement, driven by a vision of making ocean science more accessible, meaningful, and relevant to society.",
+    links: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/md-abu-yousuf-prodhan-7373951b9/" },
+      { label: "GitHub", href: "https://github.com/SiAm1998" },
+    ],
+  },
+  {
+    name: "Nadim Rahman",
+    image: "/uploads/team/nadim-rahman.jpg",
+    imagePosition: "center",
+    bio: "Md Nadim Rahman is a Research Associate at GREENS with expertise in GIS, machine learning, and remote sensing. He holds a B.Sc. (Honors) in Oceanography from Shahjalal University of Science and Technology. He specializes in ocean-climate modeling and marine environmental dynamics, applying computational and data-driven approaches to address pressing global climate challenges. His work bridges physical oceanography with modern geospatial and machine learning technologies, with a strong preference for open-source tools, workflow automation, and reproducible science.",
+    links: [
+      { label: "GitHub", href: "https://github.com/nadim-ocg" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/nadim-ocg" },
+    ],
+  },
+  {
+    name: "Samiha Subha Sooha",
+    image: "/uploads/team/samiha-subha-sooha.jpg",
+    imagePosition: "center",
+    bio: "Samiha Subha Sooha is an undergraduate Oceanography student in her final year at Shahjalal University of Science and Technology, Sylhet. Her interests include Climate Change, GIS, Remote Sensing, Chemical Oceanography, and Deep-Sea Ecosystems. She is passionate about oceanographic research to better understand marine and coastal environments, particularly addressing climate-related challenges.",
+    links: [
+      { label: "Facebook", href: "https://www.facebook.com/share/1AnUQVExGQ/" },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Team" description="Meet the people who write, research, and build Oceanopedia, a community-driven oceanography resource.">
+  <section class="team-hero relative isolate overflow-hidden border-y border-sky-100/15 bg-water px-[30px] py-16 sm:px-[50px] sm:py-24">
+    <div class="relative z-10 mx-auto max-w-[1180px]">
+      <p class="text-sm font-bold uppercase tracking-[0.24em] text-ocean">The Oceanopedia team</p>
+      <div class="mt-5 grid gap-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:gap-20">
+        <h1 class="max-w-4xl text-[44px] font-normal leading-[1.05] tracking-[-0.035em] text-white sm:text-[68px] lg:text-[82px]">
+            Meet the people behind Oceanopedia
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="people-heading" class="px-[30px] py-16 sm:px-[50px] sm:py-24">
+    <div class="mx-auto max-w-[1180px]">
+
+      <ol class="divide-y divide-sky-100/20">
+        {team.map((member, index) => (
+          <li class="grid gap-8 py-12 sm:py-16 md:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] md:gap-14 lg:gap-24">
+            <div class:list={["relative", index % 2 === 1 && "md:order-2"]}>
+              <div class="aspect-[4/5] overflow-hidden bg-sky-900">
+                <img
+                  src={member.image}
+                  alt={`Portrait of ${member.name}`}
+                  width="720"
+                  height="900"
+                  class="size-full object-cover transition duration-500 hover:scale-[1.02]"
+                  style={`object-position: ${member.imagePosition}`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </div>
+              <span class="absolute left-0 top-0 bg-ocean px-3 py-2 font-mono text-xs text-sky-100">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </div>
+
+            <div class="flex flex-col justify-center md:py-5">
+              <h3 class="text-[32px] font-normal leading-tight tracking-tight text-foam sm:text-[42px]">{member.name}</h3>
+              <div class="mt-5 h-px w-12 bg-water"></div>
+              <p class="mt-6 max-w-2xl text-base leading-[1.8] text-sky-100 sm:text-lg">{member.bio}</p>
+              <ul aria-label={`${member.name}'s links`} class="mt-8 flex flex-wrap gap-x-7 gap-y-3">
+                {member.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      class="group inline-flex items-center gap-2 border-b border-sky-100/40 pb-1 text-sm font-bold text-foam transition-colors hover:border-white"
+                    >
+                      {link.label}
+                      <span aria-hidden="true" class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .team-hero::after {
+    background:
+      radial-gradient(circle at center, transparent 0 25%, rgb(242 253 253 / 10%) 25.2% 25.7%, transparent 25.9% 40%, rgb(242 253 253 / 8%) 40.2% 40.6%, transparent 40.8% 55%, rgb(242 253 253 / 7%) 55.2% 55.5%, transparent 55.7%);
+    content: "";
+    height: 48rem;
+    pointer-events: none;
+    position: absolute;
+    right: -18rem;
+    top: -22rem;
+    width: 48rem;
+  }
+</style>
