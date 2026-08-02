@@ -1,0 +1,36 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<"articles">;
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={article.data.title} description={article.data.description} image={article.data.featuredImage} type="article">
+  <article>
+    <header class="mx-auto max-w-[644px] px-[30px] pb-5 pt-14 sm:px-0 sm:pb-5 sm:pt-36">
+      <h1 class="max-w-[600px] text-[36px] font-normal leading-[1.1] tracking-tight text-foam sm:text-[48px]">{article.data.title}</h1>
+      <p class="mt-6 text-sm text-foam">
+        Written by {article.data.authors.join(" and ")}
+      </p>
+    </header>
+    <figure class="mx-[30px] aspect-[3/2] overflow-hidden sm:mx-[50px]">
+      <img src={article.data.featuredImage} alt={article.data.featuredImageAlt} class="size-full object-cover" />
+    </figure>
+    <div class="article-body mx-auto max-w-[704px] px-[30px] py-5 sm:py-6">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

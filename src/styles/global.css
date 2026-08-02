@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ocean: #064273;
+  --color-water: #1da2d8;
+  --color-foam: #f2fdfd;
+  --color-ink: #082f49;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Fira Code", ui-monospace, monospace;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fira Code";
+  src: url("/fonts/fira-code.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-ocean);
+    color: var(--color-foam);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  ::selection {
+    background: #bae6fd;
+    color: #082f49;
+  }
+}
+
+.article-body {
+  color: var(--color-foam);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.8;
+}
+
+.article-body > * + * {
+  margin-top: 1.4rem;
+}
+
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+  color: var(--color-foam);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-top: 2.75rem;
+}
+
+.article-body h2 {
+  font-size: clamp(1.6rem, 1.35rem + 1vw, 2.25rem);
+}
+
+.article-body h3 {
+  font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.75rem);
+}
+
+.article-body a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.article-body ul,
+.article-body ol {
+  margin-left: 1.5rem;
+}
+
+.article-body ul {
+  list-style: disc;
+}
+
+.article-body ol {
+  list-style: decimal;
+}
+
+.article-body li + li {
+  margin-top: 0.5rem;
+}
+
+.article-body figure {
+  margin: 2.5rem 0;
+}
+
+.article-body img {
+  height: auto;
+  max-width: 100%;
+}
+
+.article-body figcaption {
+  color: #c1dce8;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.article-body pre {
+  background: #282c34;
+  color: #abb2bf;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  padding: 1.25rem;
+}
+
+.article-body code {
+  font-family: var(--font-mono);
+}
+
+.article-body :not(pre) > code {
+  background: #e8f5fa;
+  color: #075985;
+  padding: 0.1rem 0.3rem;
+}
+
+.article-body blockquote {
+  border-left: 4px solid var(--color-water);
+  color: #d8edf5;
+  font-style: italic;
+  padding-left: 1.25rem;
+}
+
+.article-body table {
+  border-collapse: collapse;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  width: max-content;
+}
+
+.article-body th,
+.article-body td {
+  border: 1px solid #75a5bc;
+  padding: 0.65rem 0.8rem;
+}
+
+.article-body details {
+  border: 1px solid #75a5bc;
+  padding: 1rem;
+}
+
+.article-body hr {
+  border: 0;
+  border-top: 1px solid rgb(242 253 253 / 20%);
+  margin-top: 2rem;
+}
+
+.article-body summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+@media (min-width: 48rem) {
+  .article-body .alignwide {
+    left: 50%;
+    max-width: calc(100vw - 6.25rem);
+    position: relative;
+    transform: translateX(-50%);
+    width: calc(100vw - 6.25rem);
+  }
+}

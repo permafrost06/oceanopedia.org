@@ -1,0 +1,53 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description = "Accessible, community-driven articles and resources about oceanography.",
+  image = "/uploads/2025/01/Mask-group.png",
+  type = "website",
+} = Astro.props;
+const pageTitle = title ? `${title} – Oceanopedia` : "Oceanopedia – Your Guide to Oceanography";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/uploads/2025/01/Mask-group-150x150.png" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Oceanopedia" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main-content" class="fixed left-3 top-3 z-50 -translate-y-24 bg-white px-4 py-2 font-semibold text-ocean shadow focus:translate-y-0">Skip to content</a>
+    <Header />
+    <main id="main-content" class="grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
