@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import GlassCardGrid from "../components/GlassCardGrid.astro";
+import CinematicPosters from "../components/CinematicPosters.astro";
 
 const articles = (await getCollection("articles")).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
@@ -8,8 +10,6 @@ const articles = (await getCollection("articles")).sort(
 const latestArticles = articles.slice(0, 2);
 
 // --- Article-preview showcase helpers ---
-const fmtDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 const topics = [
   "Marine Biology",
   "Oceanography",
@@ -18,9 +18,12 @@ const topics = [
   "Conservation",
   "Deep Sea",
 ];
-// Always yield exactly 5 articles, rotating the start so each section leads differently.
-const pickFive = (offset: number) =>
-  Array.from({ length: 5 }, (_, i) => articles[(i + offset) % articles.length]);
+// Yield `count` articles, rotating the start so each section leads differently.
+const pick = (offset: number, count: number) =>
+  Array.from({ length: count }, (_, i) => articles[(i + offset) % articles.length]);
+// Build a uniform span array (every card the same width).
+const uniform = (span: "single" | "double" | "triple" | "full", count: number) =>
+  Array.from({ length: count }, () => span);
 
 const navItems = [
   { href: "#articles", label: "Articles" },
@@ -125,144 +128,93 @@ const navItems = [
   >
     <h2 class="sr-only">Article preview design variations</h2>
 
-    {/* ============ Variation 01 — Editorial Index ============ */}
+    {/* ============ Variation 01 — Glass Card Grid, single width ============ */}
     <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
       <div class="mx-auto max-w-[1200px]">
         <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
           <div>
-            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 01</span>
-            <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Editorial Index</h3>
-          </div>
-          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Numbered magazine-style rows with a thumbnail that reveals on hover.</p>
-        </div>
-
-        <ol class="border-t border-[rgba(241,235,221,0.1)]">
-          {pickFive(0).map((article, i) => (
-            <li>
-              <a href={`/${article.id}/`} class="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-[rgba(241,235,221,0.1)] px-1 py-6 transition-colors duration-300 hover:bg-[rgba(30,66,86,0.4)] sm:gap-8 sm:px-4 sm:py-8">
-                <span class="font-['Big_Shoulders_Display',sans-serif] text-3xl leading-none text-[rgba(216,237,244,0.28)] transition-colors duration-300 group-hover:text-[#9fcfdf] sm:text-5xl">{String(i + 1).padStart(2, "0")}</span>
-                <span class="min-w-0">
-                  <span class="block truncate font-['Instrument_Serif',serif] text-xl italic leading-tight tracking-[0.02em] sm:text-3xl">{article.data.title}</span>
-                  <span class="mt-2 block font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)] sm:text-[11px]">{topics[i % topics.length]} — {fmtDate(article.data.publishedAt)}</span>
-                </span>
-                <span class="flex items-center gap-3 sm:gap-5">
-                  <img src={article.data.featuredImage} alt="" width="64" height="64" class="hidden size-14 rounded-[10px] object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:block sm:size-16" />
-                  <span class="text-2xl leading-none text-[rgba(216,237,244,0.5)] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#d8edf4]" aria-hidden="true">→</span>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    {/* ============ Variation 02 — Bento Feature ============ */}
-    <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
-      <div class="mx-auto max-w-[1200px]">
-        <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
-          <div>
-            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 02</span>
-            <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Bento Feature</h3>
-          </div>
-          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">An asymmetric grid leading with one large hero and four glass tiles.</p>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {pickFive(1).map((article, i) =>
-            i === 0 ? (
-              <a href={`/${article.id}/`} class="group relative isolate flex min-h-[320px] flex-col justify-end overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] p-6 transition duration-300 hover:border-[rgba(241,235,221,0.32)] sm:col-span-2 sm:min-h-[380px] lg:row-span-2 lg:min-h-full">
-                <img src={article.data.featuredImage} alt={article.data.featuredImageAlt} class="absolute inset-0 -z-20 size-full object-cover transition duration-700 group-hover:scale-105" />
-                <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(2,10,18,0.1)_25%,rgba(2,10,18,0.55)_60%,rgba(2,10,18,0.9)_100%)]"></div>
-                <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.2em] text-[#9fcfdf]">Featured — {topics[i % topics.length]}</span>
-                <h4 class="mt-3 max-w-xl font-['Instrument_Serif',serif] text-3xl italic leading-[1.1] sm:text-4xl">{article.data.title}</h4>
-                <p class="mt-3 line-clamp-2 max-w-lg text-sm leading-relaxed text-[rgba(216,237,244,0.78)]">{article.data.description}</p>
-              </a>
-            ) : (
-              <a href={`/${article.id}/`} class="group flex flex-col gap-3 rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] p-4 backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.82)]">
-                <span class="font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)]">{topics[i % topics.length]}</span>
-                <span class="line-clamp-3 font-['Instrument_Serif',serif] text-lg italic leading-tight sm:text-xl">{article.data.title}</span>
-                <span class="mt-auto font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.4)]">{fmtDate(article.data.publishedAt)}</span>
-              </a>
-            ),
-          )}
-        </div>
-      </div>
-    </section>
-
-    {/* ============ Variation 03 — Glass Card Grid ============ */}
-    <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
-      <div class="mx-auto max-w-[1200px]">
-        <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
-          <div>
-            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 03</span>
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 01 · Single</span>
             <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Glass Card Grid</h3>
           </div>
-          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Uniform frosted cards — image, category, title and a short excerpt.</p>
+          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Uniform frosted cards at single width — a compact five-across row.</p>
         </div>
 
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {pickFive(2).map((article, i) => (
-            <a href={`/${article.id}/`} class="group flex flex-col overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-1 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.82)]">
-              <div class="aspect-[4/3] overflow-hidden">
-                <img src={article.data.featuredImage} alt={article.data.featuredImageAlt} class="size-full object-cover transition duration-700 group-hover:scale-105" />
-              </div>
-              <div class="flex flex-1 flex-col gap-2 p-4">
-                <span class="font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)]">{topics[i % topics.length]}</span>
-                <span class="line-clamp-2 font-['Instrument_Serif',serif] text-lg italic leading-tight">{article.data.title}</span>
-                <p class="line-clamp-3 text-[13px] leading-relaxed text-[rgba(216,237,244,0.62)]">{article.data.description}</p>
-                <span class="mt-auto flex items-center gap-2 pt-2 font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.55)] transition-colors group-hover:text-[#9fcfdf]">Read <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></span>
-              </div>
-            </a>
-          ))}
-        </div>
+        <GlassCardGrid articles={pick(0, 5)} topics={topics} spans={uniform("single", 5)} />
       </div>
     </section>
 
-    {/* ============ Variation 04 — Cinematic Posters ============ */}
+    {/* ============ Variation 02 — Glass Card Grid, double width ============ */}
     <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
       <div class="mx-auto max-w-[1200px]">
         <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
           <div>
-            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 04</span>
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 02 · Double</span>
+            <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Glass Card Grid</h3>
+          </div>
+          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">The same cards at double width — roomier and slower-paced.</p>
+        </div>
+
+        <GlassCardGrid articles={pick(2, 4)} topics={topics} spans={uniform("double", 4)} />
+      </div>
+    </section>
+
+    {/* ============ Variation 03 — Glass Card Grid, full width ============ */}
+    <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
+      <div class="mx-auto max-w-[1200px]">
+        <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
+          <div>
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 03 · Full</span>
+            <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Glass Card Grid</h3>
+          </div>
+          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Full-width cards that each span the row — banner-style features.</p>
+        </div>
+
+        <GlassCardGrid articles={pick(1, 2)} topics={topics} spans={uniform("full", 2)} />
+      </div>
+    </section>
+
+    {/* ============ Variation 04 — Cinematic Posters, single width ============ */}
+    <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
+      <div class="mx-auto max-w-[1200px]">
+        <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
+          <div>
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 04 · Single</span>
             <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Cinematic Posters</h3>
           </div>
-          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Tall portrait tiles with full-bleed imagery and gradient overlays.</p>
+          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Tall portrait tiles at single width — a five-up film-poster wall.</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          {pickFive(3).map((article, i) => (
-            <a href={`/${article.id}/`} class="group relative isolate flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] p-4 transition duration-300 hover:-translate-y-1 hover:border-[rgba(241,235,221,0.4)]">
-              <img src={article.data.featuredImage} alt={article.data.featuredImageAlt} class="absolute inset-0 -z-20 size-full object-cover transition duration-700 group-hover:scale-105" />
-              <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(2,10,18,0.05)_35%,rgba(2,10,18,0.55)_68%,rgba(2,10,18,0.92)_100%)]"></div>
-              <span class="font-['Geist_Mono',ui-monospace,monospace] text-[9px] uppercase tracking-[0.2em] text-[#9fcfdf] sm:text-[10px]">{topics[i % topics.length]}</span>
-              <h4 class="mt-2 line-clamp-3 font-['Instrument_Serif',serif] text-lg italic leading-tight sm:text-xl">{article.data.title}</h4>
-              <span class="mt-2 flex items-center gap-1.5 font-['Geist_Mono',ui-monospace,monospace] text-[9px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.6)] opacity-0 transition-opacity duration-300 group-hover:opacity-100">Read <span aria-hidden="true">→</span></span>
-            </a>
-          ))}
-        </div>
+        <CinematicPosters articles={pick(1, 5)} topics={topics} spans={uniform("single", 5)} />
       </div>
     </section>
 
-    {/* ============ Variation 05 — Minimal Typographic ============ */}
+    {/* ============ Variation 05 — Cinematic Posters, double width ============ */}
     <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
       <div class="mx-auto max-w-[1200px]">
         <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
           <div>
-            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 05</span>
-            <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Minimal Typographic</h3>
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 05 · Double</span>
+            <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Cinematic Posters</h3>
           </div>
-          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Image-free, centred and airy — the titles carry the whole design.</p>
+          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">Double-width posters — wide cinematic stills with more presence.</p>
         </div>
 
-        <div class="mx-auto max-w-3xl border-t border-[rgba(241,235,221,0.1)]">
-          {pickFive(4).map((article, i) => (
-            <a href={`/${article.id}/`} class="group flex flex-col items-center gap-3 border-b border-[rgba(241,235,221,0.1)] py-8 text-center transition-colors duration-300 hover:bg-[rgba(30,66,86,0.28)] sm:py-10">
-              <span class="inline-flex items-center gap-2 rounded-full border border-[rgba(241,235,221,0.2)] px-3 py-1 font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.55)] transition-colors group-hover:border-[rgba(241,235,221,0.4)] group-hover:text-[#9fcfdf]">{topics[i % topics.length]}</span>
-              <h4 class="max-w-2xl font-['Instrument_Serif',serif] text-3xl italic leading-[1.1] tracking-[0.01em] transition-colors group-hover:text-white sm:text-5xl">{article.data.title}</h4>
-              <span class="font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.4)] sm:text-[11px]">{fmtDate(article.data.publishedAt)} · {article.data.authors[0]}</span>
-            </a>
-          ))}
+        <CinematicPosters articles={pick(3, 3)} topics={topics} spans={uniform("double", 3)} />
+      </div>
+    </section>
+
+    {/* ============ Variation 06 — Cinematic Posters, full width ============ */}
+    <section class="border-t border-[rgba(241,235,221,0.08)] px-4 py-20 sm:px-8 sm:py-28">
+      <div class="mx-auto max-w-[1200px]">
+        <div class="mb-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:mb-14">
+          <div>
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.3em] text-[rgba(216,237,244,0.45)]">Variation 06 · Full</span>
+            <h3 class="mt-3 font-['Big_Shoulders_Display',sans-serif] text-4xl uppercase leading-[0.9] tracking-[0.02em] sm:text-6xl">Cinematic Posters</h3>
+          </div>
+          <p class="max-w-xs font-['Instrument_Serif',serif] text-lg italic leading-snug text-[rgba(216,237,244,0.65)]">A single full-width poster — an immersive hero banner.</p>
         </div>
+
+        <CinematicPosters articles={pick(0, 1)} topics={topics} spans={uniform("full", 1)} />
       </div>
     </section>
   </div>

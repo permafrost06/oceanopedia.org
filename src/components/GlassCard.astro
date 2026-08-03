@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Span = "single" | "double" | "triple" | "full";
+
+interface Props {
+  article: CollectionEntry<"articles">;
+  topic: string;
+  span?: Span;
+}
+
+// Column span within GlassCardGrid (sm:2 / lg:3 / xl:5 columns).
+const spanClasses: Record<Span, string> = {
+  single: "",
+  double: "sm:col-span-2",
+  triple: "sm:col-span-2 lg:col-span-3",
+  full: "sm:col-span-2 lg:col-span-3 xl:col-span-5",
+};
+
+const { article, topic, span = "single" } = Astro.props;
+---
+
+<a
+  href={`/${article.id}/`}
+  class:list={[
+    "group flex flex-col overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-1 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.82)]",
+    spanClasses[span],
+  ]}
+>
+  <div class="aspect-[4/3] overflow-hidden">
+    <img
+      src={article.data.featuredImage}
+      alt={article.data.featuredImageAlt}
+      class="size-full object-cover transition duration-700 group-hover:scale-105"
+    />
+  </div>
+  <div class="flex flex-1 flex-col gap-2 p-4">
+    <span class="font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)]">{topic}</span>
+    <span class="line-clamp-2 font-['Instrument_Serif',serif] text-lg italic leading-tight">{article.data.title}</span>
+    <p class="line-clamp-3 text-[13px] leading-relaxed text-[rgba(216,237,244,0.62)]">{article.data.description}</p>
+    <span class="mt-auto flex items-center gap-2 pt-2 font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.55)] transition-colors group-hover:text-[#9fcfdf]">Read <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></span>
+  </div>
+</a>

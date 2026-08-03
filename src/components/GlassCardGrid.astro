@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from "astro:content";
+import GlassCard from "./GlassCard.astro";
+
+type Span = "single" | "double" | "triple" | "full";
+
+interface Props {
+  articles: CollectionEntry<"articles">[];
+  topics: string[];
+  /** Per-card width (by index). Defaults to "single". */
+  spans?: Span[];
+}
+
+const { articles, topics, spans = [] } = Astro.props;
+---
+
+<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+  {articles.map((article, i) => (
+    <GlassCard article={article} topic={topics[i % topics.length]} span={spans[i] ?? "single"} />
+  ))}
+</div>

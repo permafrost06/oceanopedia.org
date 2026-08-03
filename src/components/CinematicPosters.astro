@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from "astro:content";
+import CinematicPoster from "./CinematicPoster.astro";
+
+type Span = "single" | "double" | "triple" | "full";
+
+interface Props {
+  articles: CollectionEntry<"articles">[];
+  topics: string[];
+  /** Per-poster width (by index). Defaults to "single". */
+  spans?: Span[];
+}
+
+const { articles, topics, spans = [] } = Astro.props;
+---
+
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+  {articles.map((article, i) => (
+    <CinematicPoster article={article} topic={topics[i % topics.length]} span={spans[i] ?? "single"} />
+  ))}
+</div>

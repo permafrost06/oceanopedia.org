@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Span = "single" | "double" | "triple" | "full";
+
+interface Props {
+  article: CollectionEntry<"articles">;
+  topic: string;
+  span?: Span;
+}
+
+// Column span within CinematicPosters (base 2 / sm:3 / lg:5 columns).
+const spanClasses: Record<Span, string> = {
+  single: "",
+  double: "sm:col-span-2",
+  triple: "sm:col-span-2 lg:col-span-3",
+  full: "col-span-2 sm:col-span-3 lg:col-span-5",
+};
+
+const { article, topic, span = "single" } = Astro.props;
+---
+
+<a
+  href={`/${article.id}/`}
+  class:list={[
+    "group relative isolate flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] p-4 transition duration-300 hover:-translate-y-1 hover:border-[rgba(241,235,221,0.4)]",
+    spanClasses[span],
+  ]}
+>
+  <img
+    src={article.data.featuredImage}
+    alt={article.data.featuredImageAlt}
+    class="absolute inset-0 -z-20 size-full object-cover transition duration-700 group-hover:scale-105"
+  />
+  <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(2,10,18,0.05)_35%,rgba(2,10,18,0.55)_68%,rgba(2,10,18,0.92)_100%)]"></div>
+  <span class="font-['Geist_Mono',ui-monospace,monospace] text-[9px] uppercase tracking-[0.2em] text-[#9fcfdf] sm:text-[10px]">{topic}</span>
+  <h4 class="mt-2 line-clamp-3 font-['Instrument_Serif',serif] text-lg italic leading-tight sm:text-xl">{article.data.title}</h4>
+  <span class="mt-2 flex items-center gap-1.5 font-['Geist_Mono',ui-monospace,monospace] text-[9px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.6)] opacity-0 transition-opacity duration-300 group-hover:opacity-100">Read <span aria-hidden="true">→</span></span>
+</a>
