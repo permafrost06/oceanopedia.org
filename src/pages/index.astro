@@ -67,7 +67,7 @@ const navItems = [
     <div class="hero-cards z-[2] flex w-full max-w-[440px] flex-col gap-3.5 justify-self-end lg:col-start-1 lg:row-start-1 lg:self-end">
       {latestArticles.map((article) => (
         <a class="hero-article-card group flex min-h-[104px] items-center gap-3 rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] p-3 text-[#d8edf4] backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.82)] sm:min-h-[124px] sm:gap-4 sm:p-4" href={`/${article.id}/`}>
-          <img class="hero-card-image size-[76px] flex-none self-stretch rounded-[10px] object-cover sm:size-[90px]" src={article.data.featuredImage} alt={article.data.featuredImageAlt} width="90" height="90" />
+          <img class="hero-card-image size-[76px] flex-none rounded-[10px] object-cover sm:size-[90px]" src={article.data.featuredImage} alt={article.data.featuredImageAlt} width="90" height="90" />
           <span class="flex min-w-0 flex-1 flex-col">
             <span class="hero-card-label font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)] sm:text-[11px]">Latest article</span>
             <span class="hero-card-title mt-1.5 font-['Instrument_Serif',serif] text-[17px] italic leading-[1.15] tracking-[0.025em] text-[#d7edf2] sm:text-xl">{article.data.title}</span>
