@@ -1,17 +1,11 @@
 ---
 const pathname = Astro.url.pathname;
 interface Props {
-  variant?: "default" | "cinematic";
   revealAfterHero?: boolean;
 }
 
-const { variant = "default", revealAfterHero = false } = Astro.props;
+const { revealAfterHero = false } = Astro.props;
 const navItems = [
-  { href: "/contribute-to-oceanopedia/", label: "Contribute" },
-  { href: "/team/", label: "Team" },
-  { href: "/about/", label: "About" },
-];
-const cinematicNavItems = [
   { href: "/#articles", label: "Articles" },
   { href: "/contribute-to-oceanopedia/", label: "Contribute" },
   { href: "/team/", label: "Team" },
@@ -19,8 +13,7 @@ const cinematicNavItems = [
 ];
 ---
 
-{variant === "cinematic" ? (
-  <header
+<header
     data-cinematic-header
     data-reveal-after-hero={revealAfterHero ? "true" : undefined}
     aria-hidden={revealAfterHero ? "true" : undefined}
@@ -35,7 +28,7 @@ const cinematicNavItems = [
       <a href="/" class="shrink-0 bg-[linear-gradient(105deg,#9fcfdf_0%,#d5f0f4_50%,#98cbdc_100%)] bg-clip-text font-['Big_Shoulders_Display',sans-serif] text-xl font-bold uppercase tracking-[0.12em] text-transparent no-underline sm:text-2xl sm:tracking-[0.16em]" aria-label="Oceanopedia home">Oceanopedia</a>
       <nav class="ml-auto hidden min-w-0 md:block" aria-label="Primary navigation">
         <div class="flex w-max items-center justify-end gap-1 text-xs uppercase tracking-[0.12em]">
-          {cinematicNavItems.map((item) => (
+          {navItems.map((item) => (
             <a
               class:list={[
                 "rounded-[9px] border px-3 py-2 transition-colors hover:bg-[rgba(42,80,100,0.74)]",
@@ -64,7 +57,7 @@ const cinematicNavItems = [
     <nav data-mobile-menu inert aria-hidden="true" class="pointer-events-none grid -translate-y-1 grid-rows-[0fr] border-t border-[rgba(241,235,221,0.12)] opacity-0 transition-[grid-template-rows,opacity,transform] duration-200 ease-out motion-reduce:translate-y-0 motion-reduce:transition-none md:hidden" aria-label="Mobile navigation">
       <div class="overflow-hidden">
         <div class="flex flex-col px-4 py-3 text-xs uppercase tracking-[0.12em]">
-          {cinematicNavItems.map((item) => (
+          {navItems.map((item) => (
             <a
               class:list={[
                 "rounded-[9px] border px-3 py-2.5 transition-colors hover:bg-[rgba(42,80,100,0.74)]",
@@ -77,35 +70,7 @@ const cinematicNavItems = [
         </div>
       </div>
     </nav>
-  </header>
-) : (
-  <header class="bg-ocean text-foam">
-    <div class="flex flex-wrap items-center justify-between gap-x-6 px-[30px] py-5 sm:flex-nowrap sm:px-[50px] sm:py-[21px]">
-      <a href="/" class="flex w-full min-w-0 items-center gap-6 no-underline sm:w-auto" aria-label="Oceanopedia home">
-        <img src="/uploads/2025/01/Mask-group.png" alt="" width="75" height="75" class="size-[75px] shrink-0" />
-        <span class="min-w-0">
-          <strong class="block text-[36px] leading-none tracking-tight sm:text-[48px]">Oceanopedia</strong>
-          <span class="mt-2 block truncate text-sm leading-none text-sky-100">Your Guide to Oceanography</span>
-        </span>
-      </a>
-      <nav aria-label="Primary navigation" class="mt-5 sm:mt-0">
-        <ul class="flex items-center gap-6 text-sm sm:gap-5">
-          {navItems.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                aria-current={pathname === item.href ? "page" : undefined}
-                class:list={["border-b pb-1 transition-colors hover:border-sky-200", pathname === item.href ? "border-white" : "border-transparent"]}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
-  </header>
-)}
+</header>
 
 <script>
   document.querySelectorAll("[data-cinematic-header]").forEach((header) => {

@@ -1,31 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;800;900&family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
 @import "tailwindcss";
 
-@theme {
-  --color-ocean: #064273;
-  --color-water: #1da2d8;
-  --color-foam: #f2fdfd;
-  --color-ink: #082f49;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Fira Code", ui-monospace, monospace;
-}
-
-@font-face {
-  font-family: "Manrope";
-  src: url("/fonts/manrope.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 200 800;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fira Code";
-  src: url("/fonts/fira-code.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-}
-
 @keyframes wordmark-gradient {
   50% { background-position: 100% 65%, 20% 0%, 55% 100%; }
   100% { background-position: 35% 100%, 0% 75%, 100% 20%; }
@@ -38,9 +13,9 @@
 
   body {
     margin: 0;
-    background: var(--color-ocean);
-    color: var(--color-foam);
-    font-family: var(--font-sans);
+    background: #020a12;
+    color: #d8edf4;
+    font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
     font-size: 1rem;
     line-height: 1.65;
   }
@@ -56,7 +31,7 @@
 }
 
 .article-body {
-  color: var(--color-foam);
+  color: rgb(216 237 244 / 72%);
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   line-height: 1.8;
 }
@@ -68,7 +43,9 @@
 .article-body h2,
 .article-body h3,
 .article-body h4 {
-  color: var(--color-foam);
+  color: #d7edf2;
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
   font-weight: 400;
   line-height: 1.2;
   margin-top: 2.75rem;
@@ -114,7 +91,7 @@
 }
 
 .article-body figcaption {
-  color: #c1dce8;
+  color: rgb(216 237 244 / 48%);
   font-size: 0.875rem;
   line-height: 1.5;
   margin-top: 0.75rem;
@@ -122,9 +99,9 @@
 }
 
 .article-body pre {
-  background: #282c34;
-  color: #abb2bf;
-  font-family: var(--font-mono);
+  background: #020a12;
+  color: #c9e3ea;
+  font-family: "Geist Mono", ui-monospace, monospace;
   font-size: 0.875rem;
   line-height: 1.7;
   overflow-x: auto;
@@ -132,18 +109,18 @@
 }
 
 .article-body code {
-  font-family: var(--font-mono);
+  font-family: "Geist Mono", ui-monospace, monospace;
 }
 
 .article-body :not(pre) > code {
-  background: #e8f5fa;
-  color: #075985;
+  background: rgb(30 66 86 / 65%);
+  color: #b9e1eb;
   padding: 0.1rem 0.3rem;
 }
 
 .article-body blockquote {
-  border-left: 4px solid var(--color-water);
-  color: #d8edf5;
+  border-left: 4px solid #9fcfdf;
+  color: rgb(216 237 244 / 78%);
   font-style: italic;
   padding-left: 1.25rem;
 }
@@ -158,12 +135,12 @@
 
 .article-body th,
 .article-body td {
-  border: 1px solid #75a5bc;
+  border: 1px solid rgb(159 207 223 / 22%);
   padding: 0.65rem 0.8rem;
 }
 
 .article-body details {
-  border: 1px solid #75a5bc;
+  border: 1px solid rgb(159 207 223 / 24%);
   padding: 1rem;
 }
 
