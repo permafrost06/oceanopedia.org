@@ -8,6 +8,7 @@ interface Props {
   description?: string;
   image?: string;
   type?: "website" | "article";
+  showHeader?: boolean;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   description = "Accessible, community-driven articles and resources about oceanography.",
   image = "/uploads/2025/01/Mask-group.png",
   type = "website",
+  showHeader = true,
 } = Astro.props;
 const pageTitle = title ? `${title} – Oceanopedia` : "Oceanopedia – Your Guide to Oceanography";
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -44,7 +46,7 @@ const socialImage = new URL(image, Astro.site);
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main-content" class="fixed left-3 top-3 z-50 -translate-y-24 bg-white px-4 py-2 font-semibold text-ocean shadow focus:translate-y-0">Skip to content</a>
-    <Header />
+    {showHeader && <Header />}
     <main id="main-content" class="grow">
       <slot />
     </main>

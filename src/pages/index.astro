@@ -5,25 +5,59 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const articles = (await getCollection("articles")).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
+const latestArticles = articles.slice(0, 2);
 ---
 
-<BaseLayout>
-  <section class="bg-water px-[30px] py-[50px] text-center text-foam sm:min-h-[548px] sm:px-8 sm:py-[88px]">
-    <div class="mx-auto max-w-[650px]">
-      <h1 class="text-[36px] font-normal leading-[1.12] tracking-tight sm:text-[48px]">We need writers for Oceanopedia</h1>
-      <a href="/contribute-to-oceanopedia/" class="mt-8 inline-block rounded-full bg-foam px-9 py-3.5 text-base text-ocean transition hover:bg-white sm:text-lg">Contribute to Oceanopedia</a>
-      <p class="mt-8 text-lg leading-8 sm:mt-7 sm:text-[22px]">Subscribe to our newsletter to be the first to get notified when we publish</p>
-      <iframe
-        src="https://embeds.beehiiv.com/69c0241f-eb90-47d8-8004-afdb2ba42460?slim=true"
-        data-test-id="beehiiv-embed"
-        title="Subscribe to the Oceanopedia newsletter"
-        height="52"
-        class="mx-auto mt-4 block w-full max-w-md border-0 bg-transparent"
-      ></iframe>
+<BaseLayout showHeader={false}>
+  <section class="relative grid min-h-svh grid-rows-[auto_1fr_auto] gap-10 overflow-hidden bg-[linear-gradient(180deg,#08202e_0%,#051622_35%,#04111b_60%,#020a12_100%)] px-4 py-4 font-['Geist',ui-sans-serif,system-ui,sans-serif] text-[#d8edf4] sm:px-8 sm:pb-8 lg:grid-rows-1">
+    <video
+      class="absolute inset-0 size-full scale-x-[-1] object-cover opacity-70 [filter:saturate(1.5)_contrast(1.1)_brightness(0.5)_hue-rotate(30deg)]"
+      src="/herobg_short.mp4"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+    ></video>
+    <div class="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(120%_70%_at_50%_-10%,rgba(123,194,217,0.1)_0%,transparent_45%),radial-gradient(80%_60%_at_50%_120%,rgba(10,40,60,0.55)_0%,transparent_60%),linear-gradient(90deg,rgba(2,10,18,0.16),transparent_52%,rgba(2,10,18,0.12))]"></div>
+
+    <nav class="z-[2] flex flex-wrap items-center justify-center gap-0.5 justify-self-stretch rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] p-2.5 font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.08em] backdrop-blur-[14px] backdrop-saturate-[1.2] md:justify-self-end md:text-sm md:tracking-[0.12em] lg:col-start-1 lg:row-start-1 lg:self-start" aria-label="Primary navigation">
+      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="#articles">Articles</a>
+      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="#articles">Interviews</a>
+      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="#articles">Tutorials</a>
+      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="/contribute-to-oceanopedia/">Contribute</a>
+      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="/about/">About</a>
+    </nav>
+
+    <div class="z-[2] self-center justify-self-start md:ml-[clamp(0rem,3.5vw,3rem)] lg:col-start-1 lg:row-start-1">
+      <h1 class="bg-[linear-gradient(135deg,rgba(211,241,247,0.85)_0%,transparent_38%),linear-gradient(25deg,transparent_24%,rgba(124,179,202,0.85)_52%,transparent_76%),linear-gradient(105deg,#9fcfdf_0%,#c5e8f0_28%,#acd9e6_54%,#d5f0f4_76%,#98cbdc_100%)] bg-[length:180%_180%,160%_160%,200%_200%] bg-clip-text bg-[position:0%_0%,100%_100%,0%_50%] font-['Big_Shoulders_Display',sans-serif] text-[18vw] font-normal leading-[0.88] tracking-[-0.01em] text-transparent uppercase motion-safe:animate-[wordmark-gradient_12s_ease-in-out_infinite_alternate] sm:text-[clamp(4.5rem,11.3vw,11.25rem)] sm:tracking-[clamp(0.1rem,0.75vw,0.75rem)] md:whitespace-nowrap">Oceanopedia</h1>
+      <p class="mt-5 font-['Instrument_Serif',serif] text-[clamp(1.4rem,2vw,2rem)] italic leading-[1.3]">Your guide to Oceanography</p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a class="group rounded-full bg-[#d8edf4] px-7 py-[14px] text-[13px] font-medium uppercase tracking-[0.04em] text-[#04111b] shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-colors hover:bg-white" href="/contribute-to-oceanopedia/">Contribute <span class="ml-2 inline-block transition-transform group-hover:translate-x-[3px]" aria-hidden="true">→</span></a>
+        <a class="rounded-full border border-[rgba(241,235,221,0.45)] px-7 py-[14px] text-[13px] font-medium uppercase tracking-[0.04em] transition-colors hover:border-[#d8edf4] hover:bg-[rgba(241,235,221,0.06)]" href="/about/">Our mission</a>
+      </div>
+    </div>
+
+    <div class="z-[2] flex w-full max-w-[440px] flex-col gap-3.5 justify-self-end lg:col-start-1 lg:row-start-1 lg:self-end">
+      {latestArticles.map((article) => (
+        <a class="group flex min-h-[104px] items-center gap-3 rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] p-3 text-[#d8edf4] backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.82)] sm:min-h-[124px] sm:gap-4 sm:p-4" href={`/${article.id}/`}>
+          <img class="size-[76px] flex-none self-stretch rounded-[10px] object-cover sm:size-[90px]" src={article.data.featuredImage} alt={article.data.featuredImageAlt} width="90" height="90" />
+          <span class="flex min-w-0 flex-1 flex-col">
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)] sm:text-[11px]">Latest article</span>
+            <span class="mt-1.5 font-['Instrument_Serif',serif] text-[17px] italic leading-[1.15] tracking-[0.025em] text-[#d7edf2] sm:text-xl">{article.data.title}</span>
+            <span class="ml-auto text-[29px] leading-[0.8] text-[rgba(216,237,244,0.62)] transition-transform group-hover:translate-x-[3px]" aria-hidden="true">→</span>
+          </span>
+        </a>
+      ))}
+      <a class="group flex items-center justify-between gap-4 rounded-[14px] border border-[rgba(241,235,221,0.22)] bg-[rgba(4,17,27,0.68)] py-3 pl-[18px] pr-3 font-['Geist_Mono',ui-monospace,monospace] text-[11px] font-medium uppercase tracking-[0.11em] backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.5)] hover:bg-[rgba(30,66,86,0.88)] sm:text-[13px]" href="#articles">
+        Scroll down to see more articles
+        <span class="grid size-[34px] flex-none place-items-center rounded-full bg-[#d8edf4] text-[17px] leading-none text-[#04111b] transition-transform group-hover:translate-y-[3px]" aria-hidden="true">↓</span>
+      </a>
     </div>
   </section>
 
-  <section aria-labelledby="articles-heading" class="border-t-[70px] border-ocean">
+  <section id="articles" aria-labelledby="articles-heading" class="border-t-[70px] border-ocean">
     <h2 id="articles-heading" class="sr-only">Latest articles</h2>
     {articles.map((article) => (
       <article class="group relative isolate flex min-h-screen items-end overflow-hidden bg-ocean text-white">
@@ -45,3 +79,12 @@ const articles = (await getCollection("articles")).sort(
     ))}
   </section>
 </BaseLayout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;800;900&family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
+
+  @keyframes wordmark-gradient {
+    50% { background-position: 100% 65%, 20% 0%, 55% 100%; }
+    100% { background-position: 35% 100%, 0% 75%, 100% 20%; }
+  }
+</style>
