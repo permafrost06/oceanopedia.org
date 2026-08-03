@@ -17,13 +17,22 @@ const spanClasses: Record<Span, string> = {
   full: "col-span-2 sm:col-span-3 lg:col-span-5",
 };
 
+// Wider posters get shorter (landscape-leaning) aspect ratios so they aren't too tall.
+const aspectClasses: Record<Span, string> = {
+  single: "aspect-[3/4]",
+  double: "aspect-[4/3]",
+  triple: "aspect-[16/9]",
+  full: "aspect-[21/9]",
+};
+
 const { article, topic, span = "single" } = Astro.props;
 ---
 
 <a
   href={`/${article.id}/`}
   class:list={[
-    "group relative isolate flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] p-4 transition duration-300 hover:-translate-y-1 hover:border-[rgba(241,235,221,0.4)]",
+    "group relative isolate flex flex-col justify-end overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] p-4 transition duration-300 hover:-translate-y-1 hover:border-[rgba(241,235,221,0.4)]",
+    aspectClasses[span],
     spanClasses[span],
   ]}
 >
