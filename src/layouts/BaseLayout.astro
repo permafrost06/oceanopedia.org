@@ -9,6 +9,7 @@ interface Props {
   image?: string;
   type?: "website" | "article";
   showHeader?: boolean;
+  footerVariant?: "default" | "home";
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   image = "/uploads/2025/01/Mask-group.png",
   type = "website",
   showHeader = true,
+  footerVariant = "default",
 } = Astro.props;
 const pageTitle = title ? `${title} – Oceanopedia` : "Oceanopedia – Your Guide to Oceanography";
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -50,6 +52,6 @@ const socialImage = new URL(image, Astro.site);
     <main id="main-content" class="grow">
       <slot />
     </main>
-    <Footer />
+    <Footer variant={footerVariant} />
   </body>
 </html>

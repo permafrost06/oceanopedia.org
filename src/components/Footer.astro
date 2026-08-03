@@ -1,12 +1,32 @@
-<footer class="mt-auto border-t border-sky-100/15 bg-ocean text-foam">
-  <div class="flex flex-col gap-6 px-[30px] py-10 sm:flex-row sm:items-end sm:justify-between sm:px-[50px]">
-    <a href="/" class="flex items-center gap-3 text-foam no-underline">
-      <img src="/uploads/2025/01/Mask-group.png" alt="" width="48" height="48" class="size-12" loading="lazy" />
-      <span>
-        <strong class="block text-lg">Oceanopedia</strong>
-        <span class="text-sm text-sky-100">Your Guide to Oceanography</span>
-      </span>
-    </a>
-    <p class="text-sm text-sky-100">A non-profit, community-driven oceanography resource.</p>
-  </div>
-</footer>
+---
+interface Props {
+  variant?: "default" | "home";
+}
+
+const { variant = "default" } = Astro.props;
+---
+
+{variant === "home" ? (
+  <footer class="mt-auto border-t border-[rgba(241,235,221,0.08)] bg-[#020a12] font-['Geist',ui-sans-serif,system-ui,sans-serif] text-[#d8edf4]">
+    <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-4 py-12 sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:py-16">
+      <a href="/" class="no-underline" aria-label="Oceanopedia home">
+        <strong class="block bg-[linear-gradient(105deg,#9fcfdf_0%,#c5e8f0_35%,#98cbdc_100%)] bg-clip-text font-['Big_Shoulders_Display',sans-serif] text-3xl font-semibold uppercase tracking-[0.12em] text-transparent sm:text-4xl sm:tracking-[0.16em]">Oceanopedia</strong>
+        <span class="mt-2 block font-['Instrument_Serif',serif] text-lg italic text-[rgba(216,237,244,0.72)]">Your guide to Oceanography</span>
+      </a>
+      <p class="max-w-sm font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase leading-relaxed tracking-[0.14em] text-[rgba(216,237,244,0.5)] sm:text-right">A non-profit, community-driven oceanography resource.</p>
+    </div>
+  </footer>
+) : (
+  <footer class="mt-auto border-t border-sky-100/15 bg-ocean text-foam">
+    <div class="flex flex-col gap-6 px-[30px] py-10 sm:flex-row sm:items-end sm:justify-between sm:px-[50px]">
+      <a href="/" class="flex items-center gap-3 text-foam no-underline">
+        <img src="/uploads/2025/01/Mask-group.png" alt="" width="48" height="48" class="size-12" loading="lazy" />
+        <span>
+          <strong class="block text-lg">Oceanopedia</strong>
+          <span class="text-sm text-sky-100">Your Guide to Oceanography</span>
+        </span>
+      </a>
+      <p class="text-sm text-sky-100">A non-profit, community-driven oceanography resource.</p>
+    </div>
+  </footer>
+)}
