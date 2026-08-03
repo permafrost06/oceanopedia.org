@@ -14,7 +14,7 @@ interface Props {
 const { articles, topics, spans = [] } = Astro.props;
 ---
 
-<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+<div class="grid gap-16 sm:grid-cols-2 lg:grid-cols-3 xl:mx-16 xl:grid-cols-4">
   {articles.map((article, i) => (
     <GlassCard article={article} topic={topics[i % topics.length]} span={spans[i] ?? "single"} />
   ))}

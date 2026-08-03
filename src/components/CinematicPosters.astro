@@ -14,7 +14,7 @@ interface Props {
 const { articles, topics, spans = [] } = Astro.props;
 ---
 
-<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
   {articles.map((article, i) => (
     <CinematicPoster article={article} topic={topics[i % topics.length]} span={spans[i] ?? "single"} />
   ))}

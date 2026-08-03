@@ -9,12 +9,12 @@ interface Props {
   span?: Span;
 }
 
-// Column span within CinematicPosters (base 2 / sm:3 / lg:5 columns).
+// Column span within CinematicPosters (base 2 / sm:3 / lg:6 columns).
 const spanClasses: Record<Span, string> = {
   single: "",
   double: "sm:col-span-2",
   triple: "sm:col-span-2 lg:col-span-3",
-  full: "col-span-2 sm:col-span-3 lg:col-span-5",
+  full: "col-span-2 sm:col-span-3 lg:col-span-6",
 };
 
 // Wider posters get shorter (landscape-leaning) aspect ratios so they aren't too tall.
