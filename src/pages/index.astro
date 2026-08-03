@@ -6,10 +6,35 @@ const articles = (await getCollection("articles")).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
 const latestArticles = articles.slice(0, 2);
+const navItems = [
+  { href: "#articles", label: "Articles" },
+  { href: "#articles", label: "Interviews" },
+  { href: "#articles", label: "Tutorials" },
+  { href: "/contribute-to-oceanopedia/", label: "Contribute" },
+  { href: "/about/", label: "About" },
+];
 ---
 
 <BaseLayout showHeader={false}>
-  <section class="relative grid min-h-svh grid-rows-[auto_1fr_auto] gap-10 overflow-hidden bg-[linear-gradient(180deg,#08202e_0%,#051622_35%,#04111b_60%,#020a12_100%)] px-4 py-4 font-['Geist',ui-sans-serif,system-ui,sans-serif] text-[#d8edf4] sm:px-8 sm:pb-8 lg:grid-rows-1">
+  <header
+    data-home-header
+    aria-hidden="true"
+    inert
+    class="pointer-events-none fixed inset-x-0 top-0 z-40 -translate-y-2 border-b border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] font-['Geist_Mono',ui-monospace,monospace] text-[#d8edf4] opacity-0 backdrop-blur-[14px] backdrop-saturate-[1.2] transition-[opacity,transform] duration-300 motion-reduce:translate-y-0 motion-reduce:transition-none"
+  >
+    <div class="flex h-16 items-center gap-3 px-4 sm:px-8">
+      <a href="/" class="shrink-0 bg-[linear-gradient(135deg,rgba(211,241,247,0.85)_0%,transparent_38%),linear-gradient(25deg,transparent_24%,rgba(124,179,202,0.85)_52%,transparent_76%),linear-gradient(105deg,#9fcfdf_0%,#c5e8f0_28%,#acd9e6_54%,#d5f0f4_76%,#98cbdc_100%)] bg-[length:180%_180%,160%_160%,200%_200%] bg-clip-text bg-[position:0%_0%,100%_100%,0%_50%] font-['Big_Shoulders_Display',sans-serif] text-xl font-semibold uppercase tracking-[0.12em] text-transparent no-underline motion-safe:animate-[wordmark-gradient_12s_ease-in-out_infinite_alternate] sm:text-2xl sm:tracking-[0.16em]" aria-label="Oceanopedia home">Oceanopedia</a>
+      <nav class="ml-auto min-w-0 overflow-x-auto" aria-label="Primary navigation">
+        <div class="flex w-max items-center justify-end gap-0.5 text-[9px] uppercase tracking-[0.06em] sm:text-xs sm:tracking-[0.1em] md:text-sm md:tracking-[0.12em]">
+          {navItems.map((item) => (
+            <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href={item.href}>{item.label}</a>
+          ))}
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section data-hero class="relative grid min-h-svh grid-rows-[auto_1fr_auto] gap-10 overflow-hidden bg-[linear-gradient(180deg,#08202e_0%,#051622_35%,#04111b_60%,#020a12_100%)] px-4 py-4 font-['Geist',ui-sans-serif,system-ui,sans-serif] text-[#d8edf4] sm:px-8 sm:pb-8 lg:grid-rows-1">
     <video
       class="absolute inset-0 size-full scale-x-[-1] object-cover opacity-70 [filter:saturate(1.5)_contrast(1.1)_brightness(0.5)_hue-rotate(30deg)]"
       src="/herobg_short.mp4"
@@ -23,11 +48,9 @@ const latestArticles = articles.slice(0, 2);
     <div class="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(120%_70%_at_50%_-10%,rgba(123,194,217,0.1)_0%,transparent_45%),radial-gradient(80%_60%_at_50%_120%,rgba(10,40,60,0.55)_0%,transparent_60%),linear-gradient(90deg,rgba(2,10,18,0.16),transparent_52%,rgba(2,10,18,0.12))]"></div>
 
     <nav class="z-[2] flex flex-wrap items-center justify-center gap-0.5 justify-self-stretch rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] p-2.5 font-['Geist_Mono',ui-monospace,monospace] text-[11px] uppercase tracking-[0.08em] backdrop-blur-[14px] backdrop-saturate-[1.2] md:justify-self-end md:text-sm md:tracking-[0.12em] lg:col-start-1 lg:row-start-1 lg:self-start" aria-label="Primary navigation">
-      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="#articles">Articles</a>
-      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="#articles">Interviews</a>
-      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="#articles">Tutorials</a>
-      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="/contribute-to-oceanopedia/">Contribute</a>
-      <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href="/about/">About</a>
+      {navItems.map((item) => (
+        <a class="rounded-[9px] border border-transparent px-1.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.74)] sm:px-2.5" href={item.href}>{item.label}</a>
+      ))}
     </nav>
 
     <div class="z-[2] self-center justify-self-start md:ml-[clamp(0rem,3.5vw,3rem)] lg:col-start-1 lg:row-start-1">
@@ -79,6 +102,27 @@ const latestArticles = articles.slice(0, 2);
     ))}
   </section>
 </BaseLayout>
+
+<script>
+  const hero = document.querySelector("[data-hero]");
+  const header = document.querySelector("[data-home-header]");
+
+  if (hero instanceof HTMLElement && header instanceof HTMLElement) {
+    const setHeaderVisibility = (visible: boolean) => {
+      header.classList.toggle("pointer-events-none", !visible);
+      header.classList.toggle("-translate-y-2", !visible);
+      header.classList.toggle("opacity-0", !visible);
+      header.toggleAttribute("inert", !visible);
+      header.setAttribute("aria-hidden", String(!visible));
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setHeaderVisibility(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
+    });
+
+    observer.observe(hero);
+  }
+</script>
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;800;900&family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
