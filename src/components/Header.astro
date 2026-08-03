@@ -1,35 +1,165 @@
 ---
 const pathname = Astro.url.pathname;
+interface Props {
+  variant?: "default" | "cinematic";
+  revealAfterHero?: boolean;
+}
+
+const { variant = "default", revealAfterHero = false } = Astro.props;
 const navItems = [
   { href: "/contribute-to-oceanopedia/", label: "Contribute" },
   { href: "/team/", label: "Team" },
   { href: "/about/", label: "About" },
 ];
+const cinematicNavItems = [
+  { href: "/#articles", label: "Articles" },
+  { href: "/#articles", label: "Interviews" },
+  { href: "/#articles", label: "Tutorials" },
+  { href: "/contribute-to-oceanopedia/", label: "Contribute" },
+  { href: "/about/", label: "About" },
+];
 ---
 
-<header class="bg-ocean text-foam">
-  <div class="flex flex-wrap items-center justify-between gap-x-6 px-[30px] py-5 sm:flex-nowrap sm:px-[50px] sm:py-[21px]">
-    <a href="/" class="flex w-full min-w-0 items-center gap-6 no-underline sm:w-auto" aria-label="Oceanopedia home">
-      <img src="/uploads/2025/01/Mask-group.png" alt="" width="75" height="75" class="size-[75px] shrink-0" />
-      <span class="min-w-0">
-        <strong class="block text-[36px] leading-none tracking-tight sm:text-[48px]">Oceanopedia</strong>
-        <span class="mt-2 block truncate text-sm leading-none text-sky-100">Your Guide to Oceanography</span>
-      </span>
-    </a>
-    <nav aria-label="Primary navigation" class="mt-5 sm:mt-0">
-      <ul class="flex items-center gap-6 text-sm sm:gap-5">
-        {navItems.map((item) => (
-          <li>
+{variant === "cinematic" ? (
+  <header
+    data-cinematic-header
+    data-reveal-after-hero={revealAfterHero ? "true" : undefined}
+    aria-hidden={revealAfterHero ? "true" : undefined}
+    inert={revealAfterHero || undefined}
+    class:list={[
+      "inset-x-0 top-0 z-40 border-b border-[rgba(241,235,221,0.1)] bg-[rgba(4,17,27,0.82)] font-['Geist_Mono',ui-monospace,monospace] text-[#d8edf4] backdrop-blur-[16px] backdrop-saturate-[1.2] transition-[opacity,transform] duration-300 motion-reduce:translate-y-0 motion-reduce:transition-none",
+      revealAfterHero ? "fixed" : "sticky",
+      revealAfterHero && "pointer-events-none -translate-y-2 opacity-0",
+    ]}
+  >
+    <div class="mx-auto flex h-16 max-w-[1400px] items-center gap-3 px-4 sm:px-8">
+      <a href="/" class="shrink-0 bg-[linear-gradient(105deg,#9fcfdf_0%,#d5f0f4_50%,#98cbdc_100%)] bg-clip-text font-['Big_Shoulders_Display',sans-serif] text-xl font-[600] uppercase tracking-[0.12em] text-transparent no-underline sm:text-2xl sm:tracking-[0.16em]" aria-label="Oceanopedia home">Oceanopedia</a>
+      <nav class="ml-auto hidden min-w-0 md:block" aria-label="Primary navigation">
+        <div class="flex w-max items-center justify-end gap-1 text-xs uppercase tracking-[0.12em]">
+          {cinematicNavItems.map((item) => (
             <a
+              class:list={[
+                "rounded-[9px] border px-3 py-2 transition-colors hover:bg-[rgba(42,80,100,0.74)]",
+                pathname === item.href ? "border-[rgba(241,235,221,0.3)] bg-[rgba(42,80,100,0.5)]" : "border-transparent",
+              ]}
               href={item.href}
               aria-current={pathname === item.href ? "page" : undefined}
-              class:list={["border-b pb-1 transition-colors hover:border-sky-200", pathname === item.href ? "border-white" : "border-transparent"]}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+            >{item.label}</a>
+          ))}
+        </div>
+      </nav>
+      <button
+        data-menu-button
+        type="button"
+        class="ml-auto grid size-10 place-items-center rounded-[9px] border border-[rgba(241,235,221,0.2)] transition-colors hover:bg-[rgba(42,80,100,0.74)] md:hidden"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+          <span class="flex w-5 flex-col gap-1.5" aria-hidden="true">
+            <span class="h-px w-full bg-current"></span>
+            <span class="h-px w-full bg-current"></span>
+            <span class="h-px w-full bg-current"></span>
+          </span>
+      </button>
+    </div>
+    <nav data-mobile-menu inert aria-hidden="true" class="pointer-events-none grid -translate-y-1 grid-rows-[0fr] border-t border-[rgba(241,235,221,0.12)] opacity-0 transition-[grid-template-rows,opacity,transform] duration-200 ease-out motion-reduce:translate-y-0 motion-reduce:transition-none md:hidden" aria-label="Mobile navigation">
+      <div class="overflow-hidden">
+        <div class="flex flex-col px-4 py-3 text-xs uppercase tracking-[0.12em]">
+          {cinematicNavItems.map((item) => (
+            <a
+              class:list={[
+                "rounded-[9px] border px-3 py-2.5 transition-colors hover:bg-[rgba(42,80,100,0.74)]",
+                pathname === item.href ? "border-[rgba(241,235,221,0.3)] bg-[rgba(42,80,100,0.5)]" : "border-transparent",
+              ]}
+              href={item.href}
+              aria-current={pathname === item.href ? "page" : undefined}
+            >{item.label}</a>
+          ))}
+        </div>
+      </div>
     </nav>
-  </div>
-</header>
+  </header>
+) : (
+  <header class="bg-ocean text-foam">
+    <div class="flex flex-wrap items-center justify-between gap-x-6 px-[30px] py-5 sm:flex-nowrap sm:px-[50px] sm:py-[21px]">
+      <a href="/" class="flex w-full min-w-0 items-center gap-6 no-underline sm:w-auto" aria-label="Oceanopedia home">
+        <img src="/uploads/2025/01/Mask-group.png" alt="" width="75" height="75" class="size-[75px] shrink-0" />
+        <span class="min-w-0">
+          <strong class="block text-[36px] leading-none tracking-tight sm:text-[48px]">Oceanopedia</strong>
+          <span class="mt-2 block truncate text-sm leading-none text-sky-100">Your Guide to Oceanography</span>
+        </span>
+      </a>
+      <nav aria-label="Primary navigation" class="mt-5 sm:mt-0">
+        <ul class="flex items-center gap-6 text-sm sm:gap-5">
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={pathname === item.href ? "page" : undefined}
+                class:list={["border-b pb-1 transition-colors hover:border-sky-200", pathname === item.href ? "border-white" : "border-transparent"]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </header>
+)}
+
+<script>
+  document.querySelectorAll("[data-cinematic-header]").forEach((header) => {
+    if (!(header instanceof HTMLElement) || header.dataset.initialized === "true") return;
+    header.dataset.initialized = "true";
+
+    const menuButton = header.querySelector("[data-menu-button]");
+    const mobileMenu = header.querySelector("[data-mobile-menu]");
+
+    const setMenuVisibility = (visible: boolean) => {
+      if (!(menuButton instanceof HTMLButtonElement) || !(mobileMenu instanceof HTMLElement)) return;
+      menuButton.setAttribute("aria-expanded", String(visible));
+      menuButton.setAttribute("aria-label", visible ? "Close navigation menu" : "Open navigation menu");
+      mobileMenu.classList.toggle("pointer-events-none", !visible);
+      mobileMenu.classList.toggle("-translate-y-1", !visible);
+      mobileMenu.classList.toggle("grid-rows-[0fr]", !visible);
+      mobileMenu.classList.toggle("opacity-0", !visible);
+      mobileMenu.classList.toggle("grid-rows-[1fr]", visible);
+      mobileMenu.classList.toggle("translate-y-0", visible);
+      mobileMenu.classList.toggle("opacity-100", visible);
+      mobileMenu.toggleAttribute("inert", !visible);
+      mobileMenu.setAttribute("aria-hidden", String(!visible));
+    };
+
+    const setHeaderVisibility = (visible: boolean) => {
+      header.classList.toggle("pointer-events-none", !visible);
+      header.classList.toggle("-translate-y-2", !visible);
+      header.classList.toggle("opacity-0", !visible);
+      header.toggleAttribute("inert", !visible);
+      header.setAttribute("aria-hidden", String(!visible));
+      if (!visible) setMenuVisibility(false);
+    };
+
+    if (menuButton instanceof HTMLButtonElement && mobileMenu instanceof HTMLElement) {
+      menuButton.addEventListener("click", () => {
+        setMenuVisibility(menuButton.getAttribute("aria-expanded") !== "true");
+      });
+      mobileMenu.addEventListener("click", (event) => {
+        if (event.target instanceof HTMLAnchorElement) setMenuVisibility(false);
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuVisibility(false);
+      });
+    }
+
+    if (header.dataset.revealAfterHero === "true") {
+      const hero = document.querySelector("[data-hero]");
+      if (hero) {
+        const observer = new IntersectionObserver(([entry]) => {
+          setHeaderVisibility(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
+        });
+        observer.observe(hero);
+      }
+    }
+  });
+</script>

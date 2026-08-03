@@ -1,12 +1,12 @@
 ---
 interface Props {
-  variant?: "default" | "home";
+  variant?: "default" | "cinematic";
 }
 
 const { variant = "default" } = Astro.props;
 ---
 
-{variant === "home" ? (
+{variant === "cinematic" ? (
   <footer class="mt-auto border-t border-[rgba(241,235,221,0.08)] bg-[#020a12] font-['Geist',ui-sans-serif,system-ui,sans-serif] text-[#d8edf4]">
     <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-4 py-12 sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:py-16">
       <a href="/" class="no-underline" aria-label="Oceanopedia home">

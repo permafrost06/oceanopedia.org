@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;800;900&family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -23,6 +24,11 @@
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
+}
+
+@keyframes wordmark-gradient {
+  50% { background-position: 100% 65%, 20% 0%, 55% 100%; }
+  100% { background-position: 35% 100%, 0% 75%, 100% 20%; }
 }
 
 @layer base {

@@ -9,7 +9,9 @@ interface Props {
   image?: string;
   type?: "website" | "article";
   showHeader?: boolean;
-  footerVariant?: "default" | "home";
+  headerVariant?: "default" | "cinematic";
+  headerRevealAfterHero?: boolean;
+  footerVariant?: "default" | "cinematic";
 }
 
 const {
@@ -18,6 +20,8 @@ const {
   image = "/uploads/2025/01/Mask-group.png",
   type = "website",
   showHeader = true,
+  headerVariant = "default",
+  headerRevealAfterHero = false,
   footerVariant = "default",
 } = Astro.props;
 const pageTitle = title ? `${title} – Oceanopedia` : "Oceanopedia – Your Guide to Oceanography";
@@ -48,7 +52,7 @@ const socialImage = new URL(image, Astro.site);
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main-content" class="fixed left-3 top-3 z-50 -translate-y-24 bg-white px-4 py-2 font-semibold text-ocean shadow focus:translate-y-0">Skip to content</a>
-    {showHeader && <Header />}
+    {showHeader && <Header variant={headerVariant} revealAfterHero={headerRevealAfterHero} />}
     <main id="main-content" class="grow">
       <slot />
     </main>

@@ -2,20 +2,27 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Contribute to Oceanopedia" description="Write and submit an educational oceanography article to Oceanopedia.">
-  <article class="mx-auto max-w-[704px] px-[30px] pb-14 pt-12 sm:pb-24 sm:pt-36">
-    <h1 class="text-[36px] font-normal leading-tight tracking-tight text-foam sm:text-[48px]">Contribute to Oceanopedia</h1>
-    <div class="article-body mt-3 !text-[19px] !leading-[1.4] sm:mt-4 sm:!text-[22px] sm:!leading-[1.4]">
-      <p>Submit your own article to be published on Oceanopedia.</p>
-      <p>The theme of the article should be strictly related to oceanography. If you’re not sure whether your idea is appropriate, contact us for confirmation. The article should be educational. It should tell a story or explain a complicated topic. The language should be simple but not extremely so. <strong>No plagiarism or paraphrasing is allowed.</strong> Usage of images is encouraged.</p>
-      <p>Exceptional writers will have the chance to work with us in the future on a regular basis.</p>
-      <p>Everyone is eligible and welcome to submit articles.</p>
-      <section class="mt-10 bg-water p-6 sm:p-8" aria-labelledby="submit-heading">
-        <h2 id="submit-heading" class="!mt-0">Submit your article</h2>
-        <p>Send your article as a Markdown (<code>.md</code>) or Word (<code>.docx</code>) file. Include your full name, a short author biography, and the sources for any images used.</p>
-        <a href="mailto:oceanopedia.org@gmail.com?subject=Article%20submission%20for%20Oceanopedia" class="mt-5 inline-block bg-ocean px-6 py-3 font-bold !text-white !no-underline transition hover:bg-sky-950">Email your submission</a>
-      </section>
-      <p>Don’t hesitate to reach out <a href="mailto:oceanopedia.org@gmail.com">via email</a> or <a href="https://www.messenger.com/t/100003142601595">contact Nadim</a> if you have any questions.</p>
-    </div>
-  </article>
+<BaseLayout
+  title="Contribute to Oceanopedia"
+  description="Write and submit an educational oceanography article to Oceanopedia."
+  headerVariant="cinematic"
+  footerVariant="cinematic"
+>
+  <div class="min-h-screen bg-[linear-gradient(180deg,#061a27_0%,#04111b_45%,#020a12_100%)] font-['Geist',ui-sans-serif,system-ui,sans-serif] text-[#d8edf4]">
+    <article class="mx-auto max-w-[760px] px-4 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
+      <h1 class="font-['Instrument_Serif',serif] text-[clamp(3.25rem,8vw,5.5rem)] italic leading-[0.95] tracking-[-0.025em] text-[#d7edf2]">Contribute to Oceanopedia</h1>
+      <div class="article-body mt-8 !text-base !leading-[1.85] !text-[rgba(216,237,244,0.72)] sm:!text-lg">
+        <p>Submit your own article to be published on Oceanopedia.</p>
+        <p>The theme of the article should be strictly related to oceanography. If you’re not sure whether your idea is appropriate, contact us for confirmation. The article should be educational. It should tell a story or explain a complicated topic. The language should be simple but not extremely so. <strong class="text-[#d8edf4]">No plagiarism or paraphrasing is allowed.</strong> Usage of images is encouraged.</p>
+        <p>Exceptional writers will have the chance to work with us in the future on a regular basis.</p>
+        <p>Everyone is eligible and welcome to submit articles.</p>
+        <section class="mt-10 rounded-[14px] border border-[rgba(241,235,221,0.14)] bg-[rgba(30,66,86,0.52)] p-6 backdrop-blur-[14px] sm:p-8" aria-labelledby="submit-heading">
+          <h2 id="submit-heading" class="!mt-0 font-['Instrument_Serif',serif] !text-4xl italic">Submit your article</h2>
+          <p>Send your article as a Markdown (<code>.md</code>) or Word (<code>.docx</code>) file. Include your full name, a short author biography, and the sources for any images used.</p>
+          <a href="mailto:oceanopedia.org@gmail.com?subject=Article%20submission%20for%20Oceanopedia" class="mt-6 inline-flex rounded-full bg-[#d8edf4] px-6 py-3 text-xs font-medium uppercase tracking-[0.08em] !text-[#04111b] !no-underline transition hover:bg-white">Email your submission</a>
+        </section>
+        <p>Don’t hesitate to reach out <a href="mailto:oceanopedia.org@gmail.com">via email</a> or <a href="https://www.messenger.com/t/100003142601595">contact Nadim</a> if you have any questions.</p>
+      </div>
+    </article>
+  </div>
 </BaseLayout>
