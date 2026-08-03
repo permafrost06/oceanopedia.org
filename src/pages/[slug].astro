@@ -18,18 +18,25 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 ---
 
-<BaseLayout title={article.data.title} description={article.data.description} image={article.data.featuredImage} type="article">
-  <article>
-    <header class="mx-auto max-w-[644px] px-[30px] pb-5 pt-14 sm:px-0 sm:pb-5 sm:pt-36">
-      <h1 class="max-w-[600px] text-[36px] font-normal leading-[1.1] tracking-tight text-foam sm:text-[48px]">{article.data.title}</h1>
-      <p class="mt-6 text-sm text-foam">
+<BaseLayout
+  title={article.data.title}
+  description={article.data.description}
+  image={article.data.featuredImage}
+  type="article"
+  headerVariant="cinematic"
+  footerVariant="cinematic"
+>
+  <article class="bg-[linear-gradient(180deg,#061a27_0%,#04111b_38%,#020a12_100%)] font-['Geist',ui-sans-serif,system-ui,sans-serif] text-[#d8edf4]">
+    <header class="mx-auto max-w-[960px] px-4 pb-10 pt-16 sm:px-8 sm:pb-14 sm:pt-24">
+      <h1 class="max-w-[900px] font-['Instrument_Serif',serif] text-[clamp(2.75rem,7vw,6.25rem)] font-normal italic leading-[0.98] tracking-[-0.035em] text-[#d7edf2]">{article.data.title}</h1>
+      <p class="mt-8 font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.16em] text-[rgba(216,237,244,0.55)] sm:text-xs">
         Written by {article.data.authors.join(" and ")}
       </p>
     </header>
-    <figure class="mx-[30px] aspect-[3/2] overflow-hidden sm:mx-[50px]">
+    <figure class="mx-4 aspect-[3/2] max-h-[760px] overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] sm:mx-8 xl:mx-auto xl:max-w-[1320px]">
       <img src={article.data.featuredImage} alt={article.data.featuredImageAlt} class="size-full object-cover" />
     </figure>
-    <div class="article-body mx-auto max-w-[704px] px-[30px] py-5 sm:py-6">
+    <div class="article-body cinematic-article mx-auto max-w-[760px] px-4 pb-24 pt-10 sm:px-8 sm:pb-32 sm:pt-16">
       <Content />
     </div>
   </article>

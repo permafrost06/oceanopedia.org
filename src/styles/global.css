@@ -187,3 +187,137 @@
     width: calc(100vw - 6.25rem);
   }
 }
+
+.article-body.cinematic-article {
+  color: rgb(216 237 244 / 72%);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  line-height: 1.85;
+}
+
+.article-body.cinematic-article > * + * {
+  margin-top: 1.6rem;
+}
+
+.article-body.cinematic-article h2,
+.article-body.cinematic-article h3,
+.article-body.cinematic-article h4 {
+  color: #d7edf2;
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.article-body.cinematic-article h2 {
+  font-size: clamp(2.25rem, 1.8rem + 2vw, 3.5rem);
+  margin-top: 4rem;
+}
+
+.article-body.cinematic-article h3 {
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
+  margin-top: 3rem;
+}
+
+.article-body.cinematic-article h4 {
+  font-size: clamp(1.4rem, 1.25rem + 0.6vw, 1.85rem);
+}
+
+.article-body.cinematic-article strong {
+  color: #d8edf4;
+}
+
+.article-body.cinematic-article a {
+  color: #d8edf4;
+  text-decoration-color: rgb(159 207 223 / 48%);
+  transition: text-decoration-color 160ms ease;
+}
+
+.article-body.cinematic-article a:hover {
+  text-decoration-color: #d8edf4;
+}
+
+.article-body.cinematic-article figure {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.article-body.cinematic-article figure img {
+  border: 1px solid rgb(241 235 221 / 12%);
+  border-radius: 0.875rem;
+  display: block;
+  height: auto !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.article-body.cinematic-article figcaption {
+  color: rgb(216 237 244 / 48%);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 0.625rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.article-body.cinematic-article pre {
+  background: #020a12;
+  border: 1px solid rgb(241 235 221 / 12%);
+  border-radius: 0.75rem;
+  box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 18%);
+  color: #c9e3ea;
+}
+
+.article-body.cinematic-article :not(pre) > code {
+  background: rgb(30 66 86 / 65%);
+  color: #b9e1eb;
+  border-radius: 0.25rem;
+}
+
+.article-body.cinematic-article blockquote {
+  border-left-color: #9fcfdf;
+  color: rgb(216 237 244 / 78%);
+  font-family: "Instrument Serif", serif;
+  font-size: 1.35em;
+}
+
+.article-body.cinematic-article th,
+.article-body.cinematic-article td {
+  border-color: rgb(159 207 223 / 22%);
+}
+
+.article-body.cinematic-article th {
+  background: rgb(30 66 86 / 48%);
+  color: #d8edf4;
+}
+
+.article-body.cinematic-article details {
+  background: rgb(30 66 86 / 28%);
+  border-color: rgb(159 207 223 / 24%);
+  border-radius: 0.75rem;
+}
+
+.article-body.cinematic-article hr {
+  border-top-color: rgb(241 235 221 / 12%);
+  margin-bottom: 3.5rem;
+  margin-top: 3.5rem;
+}
+
+.article-body.cinematic-article .is-layout-flex {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.article-body.cinematic-article .is-layout-flex > * {
+  flex: 1 1 14rem;
+}
+
+@media (min-width: 48rem) {
+  .article-body.cinematic-article .alignwide {
+    max-width: min(70rem, calc(100vw - 4rem));
+    width: min(70rem, calc(100vw - 4rem));
+  }
+}
