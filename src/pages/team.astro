@@ -64,31 +64,36 @@ const team = [
 ];
 ---
 
-<BaseLayout title="Team" description="Meet the people who write, research, and build Oceanopedia, a community-driven oceanography resource.">
-  <section class="team-hero relative isolate overflow-hidden border-y border-sky-100/15 bg-water px-[30px] py-16 sm:px-[50px] sm:py-24">
+<BaseLayout
+  title="Team"
+  description="Meet the people who write, research, and build Oceanopedia, a community-driven oceanography resource."
+  headerVariant="cinematic"
+  footerVariant="cinematic"
+>
+  <section class="team-hero relative isolate overflow-hidden border-b border-[rgba(241,235,221,0.08)] bg-[linear-gradient(135deg,#061a27_0%,#04111b_62%,#020a12_100%)] px-4 py-20 font-['Geist',ui-sans-serif,system-ui,sans-serif] sm:px-8 sm:py-28">
     <div class="relative z-10 mx-auto max-w-[1180px]">
-      <p class="text-sm font-bold uppercase tracking-[0.24em] text-ocean">The Oceanopedia team</p>
+      <p class="font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.24em] text-[#9fcfdf] sm:text-xs">The Oceanopedia team</p>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:gap-20">
-        <h1 class="max-w-4xl text-[44px] font-normal leading-[1.05] tracking-[-0.035em] text-white sm:text-[68px] lg:text-[82px]">
+        <h1 class="max-w-4xl font-['Instrument_Serif',serif] text-[44px] font-normal italic leading-[1.02] tracking-[-0.035em] text-[#d7edf2] sm:text-[68px] lg:text-[82px]">
             Meet the people behind Oceanopedia
         </h1>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="people-heading" class="px-[30px] py-16 sm:px-[50px] sm:py-24">
+  <section aria-labelledby="people-heading" class="bg-[linear-gradient(180deg,#04111b_0%,#020a12_100%)] px-4 py-16 font-['Geist',ui-sans-serif,system-ui,sans-serif] sm:px-8 sm:py-24">
     <div class="mx-auto max-w-[1180px]">
 
-      <ol class="divide-y divide-sky-100/20">
+      <ol class="divide-y divide-[rgba(241,235,221,0.12)]">
         {team.map((member, index) => (
           <li class:list={[
             "grid gap-8 py-12 sm:py-16 md:gap-14 lg:gap-24",
             index % 2 === 1
               ? "md:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)]"
               : "md:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)]",
-          ]}>
-            <div class:list={["relative", index % 2 === 1 && "md:order-2"]}>
-              <div class="aspect-[4/5] overflow-hidden bg-sky-900">
+            ]}>
+              <div class:list={["relative", index % 2 === 1 && "md:order-2"]}>
+              <div class="aspect-[4/5] overflow-hidden rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[#061a27]">
                 <img
                   src={member.image}
                   alt={`Portrait of ${member.name}`}
@@ -102,9 +107,9 @@ const team = [
             </div>
 
             <div class="flex flex-col justify-center md:py-5">
-              <h3 class="text-[32px] font-normal leading-tight tracking-tight text-foam sm:text-[42px]">{member.name}</h3>
-              <div class="mt-5 h-px w-12 bg-water"></div>
-              <p class="mt-6 max-w-2xl text-base leading-[1.8] text-sky-100 sm:text-lg">{member.bio}</p>
+              <h3 class="font-['Instrument_Serif',serif] text-[32px] font-normal italic leading-tight tracking-tight text-[#d7edf2] sm:text-[42px]">{member.name}</h3>
+              <div class="mt-5 h-px w-12 bg-[#9fcfdf]/60"></div>
+              <p class="mt-6 max-w-2xl text-base leading-[1.8] text-[rgba(216,237,244,0.68)] sm:text-lg">{member.bio}</p>
               <ul aria-label={`${member.name}'s links`} class="mt-8 flex flex-wrap gap-x-7 gap-y-3">
                 {member.links.map((link) => (
                   <li>
@@ -112,7 +117,7 @@ const team = [
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"
-                      class="group inline-flex items-center gap-2 border-b border-sky-100/40 pb-1 text-sm font-bold text-foam transition-colors hover:border-white"
+                      class="group inline-flex items-center gap-2 border-b border-[rgba(159,207,223,0.4)] pb-1 font-['Geist_Mono',ui-monospace,monospace] text-[10px] font-medium uppercase tracking-[0.14em] text-[#d8edf4] transition-colors hover:border-[#d8edf4]"
                     >
                       {link.label}
                       <span aria-hidden="true" class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
@@ -131,7 +136,7 @@ const team = [
 <style>
   .team-hero::after {
     background:
-      radial-gradient(circle at center, transparent 0 25%, rgb(242 253 253 / 10%) 25.2% 25.7%, transparent 25.9% 40%, rgb(242 253 253 / 8%) 40.2% 40.6%, transparent 40.8% 55%, rgb(242 253 253 / 7%) 55.2% 55.5%, transparent 55.7%);
+      radial-gradient(circle at center, transparent 0 25%, rgb(159 207 223 / 8%) 25.2% 25.7%, transparent 25.9% 40%, rgb(159 207 223 / 6%) 40.2% 40.6%, transparent 40.8% 55%, rgb(159 207 223 / 5%) 55.2% 55.5%, transparent 55.7%);
     content: "";
     height: 48rem;
     pointer-events: none;
