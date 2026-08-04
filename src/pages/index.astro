@@ -56,7 +56,7 @@ const navItems = [
     </nav>
 
     <div class="z-[2] self-center justify-self-start md:ml-[clamp(0rem,3.5vw,3rem)] lg:col-start-1 lg:row-start-1">
-      <h1 class="hero-wordmark bg-[linear-gradient(135deg,rgba(211,241,247,0.85)_0%,transparent_38%),linear-gradient(25deg,transparent_24%,rgba(124,179,202,0.85)_52%,transparent_76%),linear-gradient(105deg,#9fcfdf_0%,#c5e8f0_28%,#acd9e6_54%,#d5f0f4_76%,#98cbdc_100%)] bg-[length:180%_180%,160%_160%,200%_200%] bg-clip-text bg-[position:0%_0%,100%_100%,0%_50%] font-['Big_Shoulders_Display',sans-serif] text-[18vw] leading-[0.88] tracking-[-0.01em] text-transparent uppercase [font-weight:revert] motion-safe:animate-[wordmark-gradient_12s_ease-in-out_infinite_alternate] sm:text-[clamp(4.5rem,11.3vw,11.25rem)] sm:tracking-[clamp(0.1rem,0.75vw,0.75rem)] md:whitespace-nowrap">Oceanopedia</h1>
+      <h1 class="bg-[linear-gradient(135deg,rgba(211,241,247,0.85)_0%,transparent_38%),linear-gradient(25deg,transparent_24%,rgba(124,179,202,0.85)_52%,transparent_76%),linear-gradient(105deg,#9fcfdf_0%,#c5e8f0_28%,#acd9e6_54%,#d5f0f4_76%,#98cbdc_100%)] bg-[length:180%_180%,160%_160%,200%_200%] bg-clip-text bg-[position:0%_0%,100%_100%,0%_50%] font-['Big_Shoulders_Display',sans-serif] text-[18vw] leading-[0.88] tracking-[-0.01em] text-transparent uppercase [font-weight:revert] motion-safe:animate-[wordmark-gradient_12s_ease-in-out_infinite_alternate] sm:text-[clamp(4.5rem,11.3vw,11.25rem)] sm:tracking-[clamp(0.1rem,0.75vw,0.75rem)] md:whitespace-nowrap [@media(min-width:40rem)_and_(max-width:99.9375rem)]:text-[clamp(4.5rem,9.75vw,9.75rem)]">Oceanopedia</h1>
       <p class="mt-5 font-['Instrument_Serif',serif] text-[clamp(1.4rem,2vw,2rem)] italic leading-[1.3]">Your guide to Oceanography</p>
       <div class="mt-5 flex flex-wrap gap-3">
         <a class="group rounded-full bg-[#d8edf4] px-7 py-[14px] text-[13px] font-medium uppercase tracking-[0.04em] text-[#04111b] shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-colors hover:bg-white" href="#articles">Read articles <span class="ml-2 inline-block transition-transform group-hover:translate-x-[3px]" aria-hidden="true">→</span></a>
@@ -64,13 +64,13 @@ const navItems = [
       </div>
     </div>
 
-    <div class="hero-cards z-[2] flex w-full max-w-[440px] flex-col gap-3.5 justify-self-end lg:col-start-1 lg:row-start-1 lg:self-end">
+    <div class="z-[2] flex w-full max-w-[440px] flex-col gap-3.5 justify-self-end lg:col-start-1 lg:row-start-1 lg:self-end [@media(min-width:40rem)_and_(max-width:99.9375rem)]:max-w-[25rem]">
       {latestArticles.map((article) => (
-        <a class="hero-article-card group flex min-h-[104px] items-center gap-3 rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] p-3 text-[#d8edf4] backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.82)] sm:min-h-[124px] sm:gap-4 sm:p-4" href={`/${article.id}/`}>
-          <img class="hero-card-image size-[76px] flex-none rounded-[10px] object-cover sm:size-[90px]" src={article.data.featuredImage} alt={article.data.featuredImageAlt} width="90" height="90" />
+        <a class="group flex min-h-[104px] items-center gap-3 rounded-[14px] border border-[rgba(241,235,221,0.12)] bg-[rgba(30,66,86,0.62)] p-3 text-[#d8edf4] backdrop-blur-[14px] backdrop-saturate-[1.2] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(241,235,221,0.32)] hover:bg-[rgba(42,80,100,0.82)] sm:min-h-[124px] sm:gap-4 sm:p-4 [@media(max-height:37.4375rem)]:[&:nth-of-type(2)]:hidden [@media(min-width:40rem)_and_(max-width:99.9375rem)]:min-h-[7rem] [@media(min-width:40rem)_and_(max-width:99.9375rem)]:gap-3 [@media(min-width:40rem)_and_(max-width:99.9375rem)]:p-3" href={`/${article.id}/`}>
+          <img class="size-[76px] flex-none rounded-[10px] object-cover sm:size-[90px] [@media(min-width:40rem)_and_(max-width:99.9375rem)]:size-[5.125rem]" src={article.data.featuredImage} alt={article.data.featuredImageAlt} width="90" height="90" />
           <span class="flex min-w-0 flex-1 flex-col">
-            <span class="hero-card-label font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)] sm:text-[11px]">Latest article</span>
-            <span class="hero-card-title mt-1.5 font-['Instrument_Serif',serif] text-[17px] italic leading-[1.15] tracking-[0.025em] text-[#d7edf2] sm:text-xl">{article.data.title}</span>
+            <span class="font-['Geist_Mono',ui-monospace,monospace] text-[10px] uppercase tracking-[0.2em] text-[rgba(216,237,244,0.45)] sm:text-[11px] [@media(min-width:40rem)_and_(max-width:99.9375rem)]:text-[0.625rem]">Latest article</span>
+            <span class="mt-1.5 font-['Instrument_Serif',serif] text-[17px] italic leading-[1.15] tracking-[0.025em] text-[#d7edf2] sm:text-xl [@media(min-width:40rem)_and_(max-width:99.9375rem)]:text-[1.125rem]">{article.data.title}</span>
             <span class="ml-auto text-[29px] leading-[0.8] text-[rgba(216,237,244,0.62)] transition-transform group-hover:translate-x-[3px]" aria-hidden="true">→</span>
           </span>
         </a>
@@ -97,40 +97,3 @@ const navItems = [
     </section>
   </div>
 </BaseLayout>
-
-<style>
-  @media (max-height: 37.4375rem) {
-    .hero-article-card:nth-of-type(2) {
-      display: none;
-    }
-  }
-
-  @media (min-width: 40rem) and (max-width: 99.9375rem) {
-    .hero-wordmark {
-      font-size: clamp(4.5rem, 9.75vw, 9.75rem);
-    }
-
-    .hero-cards {
-      max-width: 25rem;
-    }
-
-    .hero-article-card {
-      gap: 0.75rem;
-      min-height: 7rem;
-      padding: 0.75rem;
-    }
-
-    .hero-card-image {
-      width: 5.125rem;
-      height: 5.125rem;
-    }
-
-    .hero-card-label {
-      font-size: 0.625rem;
-    }
-
-    .hero-card-title {
-      font-size: 1.125rem;
-    }
-  }
-</style>
